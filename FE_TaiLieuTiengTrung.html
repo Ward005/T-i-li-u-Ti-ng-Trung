@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tài liệu tiếng Trung</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    select {
+      padding: 6px 10px;
+      margin: 8px;
+      font-size: 14px;
+    }
+
+    iframe {
+      width: 100%;
+      height: calc(100vh - 50px);
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Chọn quyển -->
+  <select id="selector">
+    <option value="0">Quyển 1</option>
+    <option value="1356455494">Quyển 2</option>
+    <option value="1746940242">Quyển 3</option>
+    <option value="887317619">Quyển 4</option>
+    <option value="1266088947">Quyển 5</option>
+    <option value="448269086">Quyển 6</option>
+  </select>
+
+  <!-- Hiển thị sheet -->
+  <iframe id="sheetFrame" loading="lazy"></iframe>
+
+  <script>
+    const SHEET_BASE_URL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vS13xM1FJnPwZCOour9vivPNzETX2lhbpj_5TZIPKzVzDYiswY_dI8epN6o58_aNo8KGpnt-SeXiNn_/pubhtml";
+
+    const selector = document.getElementById("selector");
+    const iframe = document.getElementById("sheetFrame");
+
+    let currentGid = null;
+
+    function loadSheet() {
+      const gid = selector.value;
+      if (!gid || gid === currentGid) return;
+
+      currentGid = gid;
+      iframe.src = `${SHEET_BASE_URL}?gid=${gid}&single=true`;
+    }
+
+    selector.addEventListener("change", loadSheet);
+
+    // load mặc định
+    loadSheet();
+  </script>
+
+</body>
+</html>
